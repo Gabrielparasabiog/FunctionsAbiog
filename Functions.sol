@@ -73,6 +73,9 @@ contract EnhancedVoting {
         candidates[_candidateId].voteCount++;
         totalVotes++;
 
+        // Assert that voteCount has been updated correctly
+        assert(candidates[_candidateId].voteCount > 0); // Ensure vote count is positive
+
         emit Voted(msg.sender, _candidateId);
     }
 
@@ -93,6 +96,9 @@ contract EnhancedVoting {
                 winnerId = i;
             }
         }
+
+        // Assert that a winner was found
+        assert(winnerId > 0); // Ensures a valid winner is determined
 
         emit ElectionEnded(winnerId, candidates[winnerId].name, winningVoteCount);
     }
@@ -118,6 +124,9 @@ contract EnhancedVoting {
                 winnerId = i;
             }
         }
+
+        // Assert that a winner is found in the results
+        assert(winnerId > 0); // Ensure there is a winner after election ends
 
         winnerName = candidates[winnerId].name;
         voteCount = candidates[winnerId].voteCount;
